@@ -1,0 +1,265 @@
+-- 1. Tabla de estudiantes
+CREATE TABLE estudiantes (
+    id_estudiante NUMBER PRIMARY KEY,
+    nombre VARCHAR2(100),
+    apellido VARCHAR2(100),
+    fecha_nacimiento DATE,
+    correo VARCHAR2(100),
+    telefono VARCHAR2(20)
+);
+
+-- 2. Tabla de profesores
+CREATE TABLE profesores (
+    id_profesor NUMBER PRIMARY KEY,
+    nombre VARCHAR2(100),
+    apellido VARCHAR2(100),
+    correo VARCHAR2(100)
+);
+
+-- 3. Tabla de cursos
+CREATE TABLE cursos (
+    id_curso NUMBER PRIMARY KEY,
+    nombre_curso VARCHAR2(100),
+    descripcion VARCHAR2(255),
+    creditos NUMBER,
+    id_profesor NUMBER,
+    FOREIGN KEY (id_profesor) REFERENCES profesores(id_profesor)
+);
+
+-- 4. Tabla de aulas
+CREATE TABLE aulas (
+    id_aula NUMBER PRIMARY KEY,
+    nombre_aula VARCHAR2(50),
+    capacidad NUMBER
+);
+
+-- 5. Tabla de horarios
+CREATE TABLE horarios (
+    id_horario NUMBER PRIMARY KEY,
+    id_curso NUMBER,
+    id_aula NUMBER,
+    dia_semana VARCHAR2(20), -- Ej: 'Lunes', 'Martes'
+    hora_inicio VARCHAR2(5), -- Ej: '08:00'
+    hora_fin VARCHAR2(5),    -- Ej: '10:00'
+    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso),
+    FOREIGN KEY (id_aula) REFERENCES aulas(id_aula)
+);
+
+-- 6. Tabla de matrículas
+CREATE TABLE matriculas (
+    id_matricula NUMBER PRIMARY KEY,
+    id_estudiante NUMBER,
+    id_horario NUMBER,
+    fecha_matricula DATE DEFAULT SYSDATE,
+    estado VARCHAR2(20), -- Activo, Retirado, Finalizado
+
+    FOREIGN KEY (id_estudiante) REFERENCES estudiantes(id_estudiante),
+    FOREIGN KEY (id_horario) REFERENCES horarios(id_horario)
+);
+-- Insertar Profesores
+INSERT INTO profesores VALUES (1, 'Carlos', 'Ramírez', 'carlos.ramirez@uni.edu');
+INSERT INTO profesores VALUES (2, 'Laura', 'Jiménez', 'laura.jimenez@uni.edu');
+INSERT INTO profesores VALUES (3, 'Daniel', 'González', 'daniel.gonzalez@uni.edu');
+INSERT INTO profesores VALUES (4, 'Marcela', 'Sáenz', 'marcela.saenz@uni.edu');
+INSERT INTO profesores VALUES (51, 'Alejandro', 'Morales', 'alejandro.morales@uni.edu');
+INSERT INTO profesores VALUES (52, 'Sofía', 'Rojas', 'sofia.rojas@uni.edu');
+INSERT INTO profesores VALUES (53, 'Ricardo', 'Vargas', 'ricardo.vargas@uni.edu');
+INSERT INTO profesores VALUES (54, 'Valeria', 'Cordero', 'valeria.cordero@uni.edu');
+INSERT INTO profesores VALUES (55, 'Fernando', 'Méndez', 'fernando.mendez@uni.edu');
+INSERT INTO profesores VALUES (56, 'Gabriela', 'Solís', 'gabriela.solis@uni.edu');
+INSERT INTO profesores VALUES (57, 'Jorge', 'Herrera', 'jorge.herrera@uni.edu');
+INSERT INTO profesores VALUES (58, 'Patricia', 'Navarro', 'patricia.navarro@uni.edu');
+INSERT INTO profesores VALUES (59, 'Roberto', 'Silva', 'roberto.silva@uni.edu');
+INSERT INTO profesores VALUES (60, 'Adriana', 'Pizarro', 'adriana.pizarro@uni.edu');
+INSERT INTO profesores VALUES (61, 'Mauricio', 'Guerrero', 'mauricio.guerrero@uni.edu');
+INSERT INTO profesores VALUES (62, 'Ximena', 'Brenes', 'ximena.brenes@uni.edu');
+INSERT INTO profesores VALUES (63, 'Diego', 'Campos', 'diego.campos@uni.edu');
+INSERT INTO profesores VALUES (64, 'Carolina', 'Salazar', 'carolina.salazar@uni.edu');
+INSERT INTO profesores VALUES (65, 'Pablo', 'Araya', 'pablo.araya@uni.edu');
+INSERT INTO profesores VALUES (66, 'Mariana', 'Chaves', 'mariana.chaves@uni.edu');
+INSERT INTO profesores VALUES (67, 'Luis', 'Ríos', 'luis.rios@uni.edu');
+INSERT INTO profesores VALUES (68, 'Ana', 'Vega', 'ana.vega@uni.edu');
+INSERT INTO profesores VALUES (69, 'Héctor', 'Sandoval', 'hector.sandoval@uni.edu');
+INSERT INTO profesores VALUES (70, 'Isabel', 'Mora', 'isabel.mora@uni.edu');
+
+-- Insertar Estudiantes
+INSERT INTO estudiantes VALUES (1, 'Juan', 'Pérez', TO_DATE('2003-05-15','YYYY-MM-DD'), 'juan.perez@email.com', '8888-1234');
+INSERT INTO estudiantes VALUES (2, 'Ana', 'Soto', TO_DATE('2004-08-22','YYYY-MM-DD'), 'ana.soto@email.com', '8888-5678');
+INSERT INTO estudiantes VALUES (3, 'Luis', 'Castro', TO_DATE('2002-01-10','YYYY-MM-DD'), 'luis.castro@email.com', '8899-0001');
+INSERT INTO estudiantes VALUES (4, 'María', 'López', TO_DATE('2003-03-22','YYYY-MM-DD'), 'maria.lopez@email.com', '8899-0002');
+INSERT INTO estudiantes VALUES (5, 'Pedro', 'Sánchez', TO_DATE('2001-07-14','YYYY-MM-DD'), 'pedro.sanchez@email.com', '8899-0003');
+INSERT INTO estudiantes VALUES (6, 'Carolina', 'Vega', TO_DATE('2004-12-09','YYYY-MM-DD'), 'carolina.vega@email.com', '8899-0004');
+INSERT INTO estudiantes VALUES (51, 'Juan', 'Pérez', TO_DATE('1998-05-15', 'YYYY-MM-DD'), 'juan.perez@uni.edu', '612345678');
+INSERT INTO estudiantes VALUES (52, 'María', 'Gómez', TO_DATE('1999-02-20', 'YYYY-MM-DD'), 'maria.gomez@uni.edu', '623456789');
+INSERT INTO estudiantes VALUES (53, 'Carlos', 'López', TO_DATE('1997-11-30', 'YYYY-MM-DD'), 'carlos.lopez@uni.edu', '634567890');
+INSERT INTO estudiantes VALUES (54, 'Ana', 'Martínez', TO_DATE('2000-07-12', 'YYYY-MM-DD'), 'ana.martinez@uni.edu', '645678901');
+INSERT INTO estudiantes VALUES (55, 'Pedro', 'Rodríguez', TO_DATE('1999-09-25', 'YYYY-MM-DD'), 'pedro.rodriguez@uni.edu', '656789012');
+INSERT INTO estudiantes VALUES (56, 'Laura', 'Sánchez', TO_DATE('1998-04-05', 'YYYY-MM-DD'), 'laura.sanchez@uni.edu', '667890123');
+INSERT INTO estudiantes VALUES (57, 'David', 'Fernández', TO_DATE('2001-01-18', 'YYYY-MM-DD'), 'david.fernandez@uni.edu', '678901234');
+INSERT INTO estudiantes VALUES (58, 'Sofía', 'Díaz', TO_DATE('1997-12-22', 'YYYY-MM-DD'), 'sofia.diaz@uni.edu', '689012345');
+INSERT INTO estudiantes VALUES (59, 'Javier', 'Torres', TO_DATE('1999-08-14', 'YYYY-MM-DD'), 'javier.torres@uni.edu', '690123456');
+INSERT INTO estudiantes VALUES (60, 'Lucía', 'Romero', TO_DATE('2000-03-08', 'YYYY-MM-DD'), 'lucia.romero@uni.edu', '601234567');
+INSERT INTO estudiantes VALUES (61, 'Miguel', 'Navarro', TO_DATE('1998-06-19', 'YYYY-MM-DD'), 'miguel.navarro@uni.edu', '612345670');
+INSERT INTO estudiantes VALUES (62, 'Elena', 'Gil', TO_DATE('1999-10-11', 'YYYY-MM-DD'), 'elena.gil@uni.edu', '623456781');
+INSERT INTO estudiantes VALUES (63, 'Daniel', 'Ruiz', TO_DATE('1997-07-03', 'YYYY-MM-DD'), 'daniel.ruiz@uni.edu', '634567892');
+INSERT INTO estudiantes VALUES (64, 'Paula', 'Serrano', TO_DATE('2001-02-28', 'YYYY-MM-DD'), 'paula.serrano@uni.edu', '645678903');
+INSERT INTO estudiantes VALUES (65, 'Alejandro', 'Blanco', TO_DATE('1998-09-17', 'YYYY-MM-DD'), 'alejandro.blanco@uni.edu', '656789014');
+INSERT INTO estudiantes VALUES (66, 'Carmen', 'Suárez', TO_DATE('2000-05-23', 'YYYY-MM-DD'), 'carmen.suarez@uni.edu', '667890125');
+INSERT INTO estudiantes VALUES (67, 'Rubén', 'Molina', TO_DATE('1999-11-09', 'YYYY-MM-DD'), 'ruben.molina@uni.edu', '678901236');
+INSERT INTO estudiantes VALUES (68, 'Natalia', 'Ortega', TO_DATE('1997-04-30', 'YYYY-MM-DD'), 'natalia.ortega@uni.edu', '689012347');
+INSERT INTO estudiantes VALUES (69, 'Hugo', 'Delgado', TO_DATE('1998-08-12', 'YYYY-MM-DD'), 'hugo.delgado@uni.edu', '690123458');
+INSERT INTO estudiantes VALUES (70, 'Claudia', 'Castro', TO_DATE('2000-01-25', 'YYYY-MM-DD'), 'claudia.castro@uni.edu', '601234569');
+-- Insertar Cursos
+INSERT INTO cursos VALUES (101, 'Matemáticas Básicas', 'Curso introductorio', 3, 1);
+INSERT INTO cursos VALUES (102, 'Lengua Española', 'Curso de gramática', 4, 2);
+INSERT INTO cursos VALUES (103, 'Historia Universal', 'Estudio de eventos históricos clave', 3, 3);
+INSERT INTO cursos VALUES (104, 'Física General', 'Fundamentos de la física clásica', 4, 4);
+-- Insertar Cursos adicionales
+INSERT INTO cursos VALUES (51, 'Física Cuántica', 'Principios fundamentales de la física cuántica', 5, 51);
+INSERT INTO cursos VALUES (52, 'Literatura Contemporánea', 'Análisis de obras literarias modernas', 4, 52);
+INSERT INTO cursos VALUES (53, 'Biología Molecular', 'Estudio de las estructuras moleculares', 6, 53);
+INSERT INTO cursos VALUES (54, 'Derecho Internacional', 'Principios del derecho internacional público', 4, 54);
+INSERT INTO cursos VALUES (55, 'Inteligencia Artificial', 'Fundamentos de IA y aprendizaje automático', 5, 55);
+INSERT INTO cursos VALUES (56, 'Arte Renacentista', 'Historia y análisis del arte renacentista', 3, 56);
+INSERT INTO cursos VALUES (57, 'Economía Avanzada', 'Teorías económicas contemporáneas', 4, 57);
+INSERT INTO cursos VALUES (58, 'Ingeniería de Software', 'Metodologías de desarrollo de software', 5, 58);
+INSERT INTO cursos VALUES (59, 'Psicología Social', 'Comportamiento humano en contextos sociales', 4, 59);
+INSERT INTO cursos VALUES (60, 'Química Orgánica', 'Estructura y reactividad de compuestos orgánicos', 6, 60);
+INSERT INTO cursos VALUES (61, 'Geopolítica', 'Análisis de las relaciones internacionales', 3, 61);
+INSERT INTO cursos VALUES (62, 'Estadística Multivariada', 'Técnicas estadísticas avanzadas', 5, 62);
+INSERT INTO cursos VALUES (63, 'Filosofía Antigua', 'Estudio de los filósofos clásicos', 3, 63);
+INSERT INTO cursos VALUES (64, 'Marketing Digital', 'Estrategias de marketing en entornos digitales', 4, 64);
+INSERT INTO cursos VALUES (65, 'Ecología Aplicada', 'Gestión sostenible de ecosistemas', 4, 65);
+
+-- Insertar Aulas adicionales
+INSERT INTO aulas VALUES (51, 'A-101', 35);
+INSERT INTO aulas VALUES (52, 'A-102', 40);
+INSERT INTO aulas VALUES (53, 'B-201', 25);
+INSERT INTO aulas VALUES (54, 'B-202', 30);
+INSERT INTO aulas VALUES (55, 'C-301', 45);
+INSERT INTO aulas VALUES (56, 'C-302', 50);
+INSERT INTO aulas VALUES (57, 'D-401', 20);
+INSERT INTO aulas VALUES (58, 'D-402', 25);
+INSERT INTO aulas VALUES (59, 'E-501', 60);
+INSERT INTO aulas VALUES (60, 'E-502', 55);
+
+-- Insertar Aulas
+INSERT INTO aulas VALUES (10, 'Aula 101', 30);
+INSERT INTO aulas VALUES (11, 'Aula 202', 25);
+INSERT INTO aulas VALUES (12, 'Aula 303', 35);
+INSERT INTO aulas VALUES (13, 'Aula 404', 20);
+
+-- Insertar Horarios
+INSERT INTO horarios VALUES (1, 101, 10, 'Lunes', '08:00', '10:00');
+INSERT INTO horarios VALUES (2, 102, 11, 'Martes', '10:00', '12:00');
+INSERT INTO horarios VALUES (3, 103, 12, 'Miércoles', '09:00', '11:00');
+INSERT INTO horarios VALUES (4, 104, 13, 'Jueves', '13:00', '15:00');
+
+-- Insertar Horarios adicionales
+INSERT INTO horarios VALUES (51, 51, 51, 'Lunes', '08:00', '10:00');
+INSERT INTO horarios VALUES (52, 52, 52, 'Martes', '09:00', '11:00');
+INSERT INTO horarios VALUES (53, 53, 53, 'Miércoles', '10:00', '12:00');
+INSERT INTO horarios VALUES (54, 54, 54, 'Jueves', '11:00', '13:00');
+INSERT INTO horarios VALUES (55, 55, 55, 'Viernes', '14:00', '16:00');
+INSERT INTO horarios VALUES (56, 56, 56, 'Lunes', '15:00', '17:00');
+INSERT INTO horarios VALUES (57, 57, 57, 'Martes', '16:00', '18:00');
+INSERT INTO horarios VALUES (58, 58, 58, 'Miércoles', '08:00', '10:00');
+INSERT INTO horarios VALUES (59, 59, 59, 'Jueves', '09:00', '11:00');
+INSERT INTO horarios VALUES (60, 60, 60, 'Viernes', '10:00', '12:00');
+INSERT INTO horarios VALUES (61, 61, 51, 'Lunes', '13:00', '15:00');
+INSERT INTO horarios VALUES (62, 62, 52, 'Martes', '14:00', '16:00');
+INSERT INTO horarios VALUES (63, 63, 53, 'Miércoles', '15:00', '17:00');
+INSERT INTO horarios VALUES (64, 64, 54, 'Jueves', '16:00', '18:00');
+INSERT INTO horarios VALUES (65, 65, 55, 'Viernes', '08:00', '10:00');
+
+-- Insertar Matrículas
+INSERT INTO matriculas VALUES (1, 1, 1, SYSDATE, 'Activo');       -- Juan en Matemáticas
+INSERT INTO matriculas VALUES (2, 2, 2, SYSDATE, 'Activo');       -- Ana en Español
+INSERT INTO matriculas VALUES (3, 3, 3, SYSDATE, 'Activo');       -- Luis en Historia
+INSERT INTO matriculas VALUES (4, 4, 4, SYSDATE, 'Activo');       -- María en Física
+INSERT INTO matriculas VALUES (5, 5, 1, SYSDATE, 'Activo');       -- Pedro en Matemáticas
+INSERT INTO matriculas VALUES (6, 6, 2, SYSDATE, 'Activo');       -- Carolina en Español
+INSERT INTO matriculas VALUES (7, 1, 3, SYSDATE, 'Finalizado');   -- Juan en Historia (terminado)
+INSERT INTO matriculas VALUES (8, 2, 4, SYSDATE, 'Retirado');     -- Ana se retiró de Física
+
+-- Insertar Matrículas adicionales
+INSERT INTO matriculas VALUES (51, 51, 51, TO_DATE('2023-01-10', 'YYYY-MM-DD'), 'Activo');
+INSERT INTO matriculas VALUES (52, 52, 52, TO_DATE('2023-01-12', 'YYYY-MM-DD'), 'Activo');
+INSERT INTO matriculas VALUES (53, 53, 53, TO_DATE('2023-01-15', 'YYYY-MM-DD'), 'Activo');
+INSERT INTO matriculas VALUES (54, 54, 54, TO_DATE('2023-01-18', 'YYYY-MM-DD'), 'Activo');
+INSERT INTO matriculas VALUES (55, 55, 55, TO_DATE('2023-01-20', 'YYYY-MM-DD'), 'Activo');
+INSERT INTO matriculas VALUES (56, 56, 56, TO_DATE('2023-02-05', 'YYYY-MM-DD'), 'Finalizado');
+INSERT INTO matriculas VALUES (57, 57, 57, TO_DATE('2023-02-10', 'YYYY-MM-DD'), 'Finalizado');
+INSERT INTO matriculas VALUES (58, 58, 58, TO_DATE('2023-02-15', 'YYYY-MM-DD'), 'Finalizado');
+INSERT INTO matriculas VALUES (59, 59, 59, TO_DATE('2023-02-20', 'YYYY-MM-DD'), 'Finalizado');
+INSERT INTO matriculas VALUES (60, 60, 60, TO_DATE('2023-02-25', 'YYYY-MM-DD'), 'Finalizado');
+INSERT INTO matriculas VALUES (61, 61, 61, TO_DATE('2023-03-01', 'YYYY-MM-DD'), 'Retirado');
+INSERT INTO matriculas VALUES (62, 62, 62, TO_DATE('2023-03-05', 'YYYY-MM-DD'), 'Retirado');
+INSERT INTO matriculas VALUES (63, 63, 63, TO_DATE('2023-03-10', 'YYYY-MM-DD'), 'Retirado');
+INSERT INTO matriculas VALUES (64, 64, 64, TO_DATE('2023-03-15', 'YYYY-MM-DD'), 'Retirado');
+INSERT INTO matriculas VALUES (65, 65, 65, TO_DATE('2023-03-20', 'YYYY-MM-DD'), 'Retirado');
+INSERT INTO matriculas VALUES (66, 51, 52, TO_DATE('2023-01-11', 'YYYY-MM-DD'), 'Activo');
+INSERT INTO matriculas VALUES (67, 52, 53, TO_DATE('2023-01-13', 'YYYY-MM-DD'), 'Activo');
+INSERT INTO matriculas VALUES (68, 53, 54, TO_DATE('2023-01-16', 'YYYY-MM-DD'), 'Activo');
+INSERT INTO matriculas VALUES (69, 54, 55, TO_DATE('2023-01-19', 'YYYY-MM-DD'), 'Activo');
+INSERT INTO matriculas VALUES (70, 55, 56, TO_DATE('2023-01-21', 'YYYY-MM-DD'), 'Activo');
+
+SELECT * FROM estudiantes;
+SELECT * FROM profesores;
+SELECT * FROM cursos;
+SELECT * FROM aulas;
+SELECT * FROM horarios;
+SELECT * FROM matriculas;
+
+CREATE OR REPLACE VIEW vista_cubo_matriculas AS
+SELECT
+    c.nombre_curso,
+    p.nombre || ' ' || p.apellido AS nombre_profesor,
+    m.estado,
+    EXTRACT(YEAR FROM m.fecha_matricula) AS anio_matricula,
+    COUNT(*) AS cantidad_estudiantes
+FROM matriculas m
+JOIN horarios h ON m.id_horario = h.id_horario
+JOIN cursos c ON h.id_curso = c.id_curso
+JOIN profesores p ON c.id_profesor = p.id_profesor
+GROUP BY 
+    c.nombre_curso,
+    p.nombre || ' ' || p.apellido,
+    m.estado,
+    EXTRACT(YEAR FROM m.fecha_matricula);
+SELECT
+    nombre_curso,
+    nombre_profesor,
+    estado,
+    anio_matricula,
+    SUM(cantidad_estudiantes) AS total_estudiantes
+FROM vista_cubo_matriculas
+GROUP BY CUBE (
+    nombre_curso,
+    nombre_profesor,
+    estado,
+    anio_matricula
+)
+ORDER BY nombre_curso, nombre_profesor, estado, anio_matricula;
+CREATE MATERIALIZED VIEW cubo_matriculas
+BUILD IMMEDIATE
+REFRESH ON DEMAND
+AS
+SELECT
+    nombre_curso,
+    nombre_profesor,
+    estado,
+    anio_matricula,
+    SUM(cantidad_estudiantes) AS total_estudiantes
+FROM vista_cubo_matriculas
+GROUP BY CUBE (
+    nombre_curso,
+    nombre_profesor,
+    estado,
+    anio_matricula
+);
+
+
+
+
+truncate table estudiantes
